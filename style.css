@@ -73,25 +73,23 @@ body {
     }
 
     .main {
+      max-width: 1200px;
+      margin: 0 auto;
       display: flex;
-      flex-wrap: wrap;
-      margin: 0 -10px;
+      gap: 20px;
+      padding: 20px 0;
     }
 
-    .leftcolumn {
-      flex: 3;
-      padding: 0 10px;
-    }
-
-    .rightcolumn {
+    .leftcolumn, .rightcolumn {
       flex: 1;
-      padding: 0 10px;
     }
 
     .card {
-      background-color: white;
+      background: white;
+      margin-bottom: 20px;
       padding: 20px;
-      margin: 20px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
 
     body.dark-mode .card {
