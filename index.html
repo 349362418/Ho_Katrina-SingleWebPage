@@ -1,11 +1,239 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 10px;
+      background: #f1f1f1;
+      margin: 0;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark-mode {
+      background: #333;
+      color: #ffffff;
+    }
+
+    .fullscreen-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: white;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      display: none;
+    }
+
+    .fullscreen-overlay img {
+      max-width: 90%;
+      max-height: 90%;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .header {
+      padding: 30px;
+      text-align: center;
+      background: white;
+    }
+
+    body.dark-mode .header {
+      background: #444;
+      color: white;
+    }
+
+    .topnav {
+      display: flex;
+      align-items: center;
+      background-color: #333;
+      padding: 0 10px;
+    }
+
+    .topnav-left {
+      display: flex;
+    }
+
+    .topnav-right {
+      margin-left:auto;
+    }
+    
+    .topnav a {
+      padding: 14px 16px;
+      text-decoration: none;
+      color: #f2f2f2;
+      text-align: center;
+    }
+
+    .topnav a:hover {
+      background-color: #dddddd;
+      color: black;
+    }
+
+    body.dark-mode .topnav a:hover {
+      background-color: #555;
+      color: white;
+    }
+
+    .main {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 -10px;
+    }
+
+    .leftcolumn {
+      flex: 3;
+      padding: 0 10px;
+    }
+
+    .rightcolumn {
+      flex: 1;
+      padding: 0 10px;
+    }
+
+    .card {
+      background-color: white;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    body.dark-mode .card {
+      background-color: #555;
+    }
+
+    .footer {
+      padding: 20px;
+      text-align: center;
+      background: #dddddd;
+    }
+
+    body.dark-mode .footer {
+      background: #444;
+    }
+
+    @media screen and (max-width: 800px) {
+      .main {
+        flex-direction: column;
+      }
+
+      .topnav {
+        flex-direction: column;
+      }
+
+      .topnav-right{
+        margin-left: 0;
+      }
+    }
+
+
+  </style>
 </head>
+
 <body>
-    <h1>Hello World</h1>
+
+  <div class="header">
+    <h1>Website Title</h1>
+    <p>Subtitle text goes here</p>
+  </div>
+
+  <div class="topnav">
+    <div class="topnav-left">
+      <a href="#">Link 1</a>
+      <a href="#">Link 2</a>
+      <a href="#">Link 3</a>
+    </div>
+    <div class="topnav-right">
+      <a href="#">Right Link</a>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="leftcolumn">
+      <div class="card">
+        <h2>TITLE HEADING</h2>
+        <h5>Title description, Dec 7, 2017</h5>
+        <div class="imgHolder" onclick="showFullScreenImage(this)" style="height:200px; background-image: url('images/pattern.jpg'); background-size: cover;">
+        </div>
+        <br>
+        <p>Some text...</p>
+        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco.</p>
+        
+      </div>
+      <div class="card">
+        <h2>TITLE HEADING</h2>
+        <h5>Title description, Sep 2, 2017</h5>
+        <div class="imgHolder" onclick="showFullScreenImage(this)"
+          style="height:200px; background-image: url('images/mosaic-tile.jpg'); background-size: cover;"></div>
+        <p>Some text...</p>
+        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco.</p>
+      </div>
+    </div>
+    <div class="rightcolumn">
+      <div class="card">
+        <h2>About Me</h2>
+        <div class="imgHolder">Image</div>
+        <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+      </div>
+      <div class="card">
+        <h3>Extra content</h3>
+        <div class="imgHolder">
+          <p>Image</p>
+        </div>
+        <p>Some text...</p>
+        <div class="imgHolder">
+          <p>Image</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Follow Me</h3>
+        <p>Some text...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <h2 id="footerHeader">Footer</h2>
+    <button onclick="updateFooter()">Update Footer</button>
+    <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+  </div>
+
+  <div class="fullscreen-overlay" id="fullscreenOverlay" onclick="hideOverlay()">
+    <img src="" alt="Fullscreen Image" id="fullscreenImage" />
+  </div>
+      
+  <script>
+    function updateFooter() {
+      let element = document.getElementById('footerHeader');
+      element.textContent = 'Clicked Footer!';
+      element.style.color = 'red';
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+
+    function showFullScreenImage(element) {
+      let overlay = document.getElementById('fullscreenOverlay');
+      let bgImage = element.style.backgroundImage.slice(5,-2);
+      let image =document.getElementById('fullscreenImage');
+
+      image.src = bgImage;
+
+      overlay.style.display = 'flex';
+    }
+
+    function hideOverlay() {
+      let overlay = document.getElementById('fullscreenOverlay');
+      overlay.style.display = 'none';
+    }
+  </script>
+
 </body>
+
 </html>
